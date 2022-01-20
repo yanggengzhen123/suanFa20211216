@@ -24,6 +24,7 @@
         }
       }
     }
+    // 因为每次都pop（）出去，最后的栈元素应该是空的
     if (stack.length !== 0) {
       return false
     }
