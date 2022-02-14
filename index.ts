@@ -30,14 +30,59 @@
   //     },
   //   },
   // }
-  let arr = [1, [2, [3]]]
-  // console.log(reverseList(head))
-  function flat3(arr: any[]) {
-    while (arr.some((item) => Array.isArray(item))) {
-      console.log(arr)
-      arr = [].concat(...arr)
+  let nums1 = [1, 2, 3, 0, 0, 0],
+    m = 3,
+    nums2 = [2, 5, 6],
+    n = 3
+  // //逆向双指针
+  // var merge = function (
+  //   nums1: number[],
+  //   m: number,
+  //   nums2: number[],
+  //   n: number
+  // ) {
+  //   let p1 = m - 1,
+  //     p2 = n - 1
+  //   let tail = m + n - 1
+  //   var cur
+  //   while (p1 >= 0 || p2 >= 0) {
+  //     if (p1 === -1) {
+  //       cur = nums2[p2--]
+  //     } else if (p2 === -1) {
+  //       cur = nums1[p1--]
+  //     } else if (nums1[p1] > nums2[p2]) {
+  //       cur = nums1[p1--]
+  //     } else {
+  //       cur = nums2[p2--]
+  //     }
+  //     nums1[tail--] = cur
+  //   }
+  // }
+  var merge = function (
+    nums1: number[],
+    m: number,
+    nums2: number[],
+    n: number
+  ) {
+    let p1 = 0,
+      p2 = 0
+    const sorted = new Array(m + n).fill(0)
+    var cur
+    while (p1 < m || p2 < n) {
+      if (p1 === m) {
+        cur = nums2[p2++]
+      } else if (p2 === n) {
+        cur = nums1[p1++]
+      } else if (nums1[p1] < nums2[p2]) {
+        cur = nums1[p1++]
+      } else {
+        cur = nums2[p2++]
+      }
+      sorted[p1 + p2 - 1] = cur
     }
-    return arr
+    for (let i = 0; i != m + n; ++i) {
+      nums1[i] = sorted[i]
+    }
   }
-  console.log(flat3(arr))
+  merge(nums1, m, nums2, n)
 })()
